@@ -44,7 +44,23 @@ def read_workout():
     if not workouts:
         print("Sem treinos registrados!")
     for i, workout in enumerate(workouts):
-        print(f"Treino {i + 1}:\n  Nome: {workout["name"]} \n  Data: {workout["date"]} \n  Distância: {workout["distance"]}KM \n  Tempo: {workout["time"]} \n  Localização: {workout["localization"]} \n  Clima: {workout["weather"]}")
+        print(f"Treino {i + 1}:\n  Nome: {workout["name"]} \n  Data: {workout["date"]} \n  Distância: {workout["distance"]}KM \n  Tempo: {workout["time"]} Minutos \n  Localização: {workout["localization"]} \n  Clima: {workout["weather"]}")
+    print()
+    while True:
+        print("Filtros: 1- Tempo | 2- Distância")
+        filter_opt = int(input("Insira o filtro desejado ou 0 para retornar: "))
+        if filter_opt == 0:
+            break
+        elif filter_opt == 1:
+            time_filter_min = float(input("Insira o tempo mínimo de treino ou 0 caso não possua: "))
+            time_filter_max = float(input("Insira o tempo máximo de treino ou 0 caso não possua: "))
+            if time_filter_min <= workout["time"]:
+                for i, workout in enumerate(workouts):
+                    print(f"Treino {i + 1}:\n  Nome: {workout["name"]} \n  Data: {workout["date"]} \n  Distância: {workout["distance"]}KM \n  Tempo: {workout["time"]} Minutos \n  Localização: {workout["localization"]} \n  Clima: {workout["weather"]}")
+        elif filter_opt == 2:
+            distance_filter_min = float(input("Insira a distância mínima de treino ou 0 caso não possua: "))
+            distance_filter_max = float(input("Insira a distância máxima de treino ou 0 caso não possua: "))
+        
 
 def update_workout(id):
     for workout in enumerate(workouts):
@@ -90,7 +106,7 @@ def delete_workout(id):
 def workouts_numerate():
     for i, workout in enumerate(workouts):
         print("Treinos: ")
-        print(f"{i + 1} - {workout["name"]}")
+        print(f"{i + 1} - {workout["name"]}")       
 
 while True:
     read_workout_data()
@@ -102,9 +118,9 @@ while True:
     print("5 - Sair do Programa")
     print("-=" * 15)
     
-    resp = int(input(""))
+    user_opt = int(input(""))
     
-    if resp == 1:
+    if user_opt == 1:
         print("-=" * 15)
         name = input("Nome do treino: ")
         date = input("Data: ")
@@ -116,26 +132,25 @@ while True:
         
         create_workout(name, date, distance, time, localization, weather)
     
-    if resp == 2:
+    if user_opt == 2:
         print("-=" * 15)
         read_workout()
-        print("-=" * 15)
     
-    if resp == 3:
+    if user_opt == 3:
         print("-=" * 15)
         workouts_numerate()
         id = int(input("Número do treino: "))
         update_workout(id)
         print("-=" * 15)
     
-    if resp == 4:
+    if user_opt == 4:
         print("-=" * 15)
         workouts_numerate()
-        id = int(input("ID do treino: "))
+        id = int(input("Número do treino: "))
         delete_workout(id)
         print("-=" * 15)
     
-    if resp == 5:
+    if user_opt == 5:
         print("-=" * 15)
         print("Saindo do programa...")
         print("-=" * 15)
