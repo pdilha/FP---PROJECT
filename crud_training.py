@@ -54,14 +54,30 @@ def read_workout():
         elif filter_opt == 1:
             time_filter_min = float(input("Insira o tempo mínimo de treino ou 0 caso não possua: "))
             time_filter_max = float(input("Insira o tempo máximo de treino ou 0 caso não possua: "))
-            if time_filter_min <= workout["time"]:
-                for i, workout in enumerate(workouts):
+            filtered_workouts = [
+                workout for workout in workouts
+                if (time_filter_min == 0 or workout["time"] >= time_filter_min) and (time_filter_max == 0 or workout["time"] <= time_filter_max)
+            ]
+            if not filtered_workouts:
+                print("Nenhum treino encontrado!")
+            else:
+                for i, workout in enumerate(filtered_workouts):
                     print(f"Treino {i + 1}:\n  Nome: {workout["name"]} \n  Data: {workout["date"]} \n  Distância: {workout["distance"]}KM \n  Tempo: {workout["time"]} Minutos \n  Localização: {workout["localization"]} \n  Clima: {workout["weather"]}")
+            print()
         elif filter_opt == 2:
             distance_filter_min = float(input("Insira a distância mínima de treino ou 0 caso não possua: "))
             distance_filter_max = float(input("Insira a distância máxima de treino ou 0 caso não possua: "))
+            filtered_workouts = [
+                workout for workout in workouts
+                if (distance_filter_min == 0 or workout["distance"] >= distance_filter_min) and (distance_filter_max == 0 or workout["distance"] <= distance_filter_max)
+            ]
+            if not filtered_workouts:
+                print("Nenhum treino encontrado!")
+            else:
+                for i, workout in enumerate(filtered_workouts):
+                    print(f"Treino {i + 1}:\n  Nome: {workout["name"]} \n  Data: {workout["date"]} \n  Distância: {workout["distance"]}KM \n  Tempo: {workout["time"]} Minutos \n  Localização: {workout["localization"]} \n  Clima: {workout["weather"]}")
+            print()
         
-
 def update_workout(id):
     for workout in enumerate(workouts):
         if workout["id"] == id:
