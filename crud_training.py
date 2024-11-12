@@ -44,7 +44,7 @@ def read_workout():
     if not workouts:
         print("Sem treinos registrados!")
     for i, workout in enumerate(workouts):
-        print(f"Treino {i + 1}:\n  Nome: {workout["name"]} \n  Data: {workout["date"]} \n  Distância: {workout["distance"]}KM \n  Tempo: {workout["time"]} Minutos \n  Localização: {workout["localization"]} \n  Clima: {workout["weather"]}")
+        print(f"Treino {i + 1}:\n  Nome: {workout['name']} \n  Data: {workout['date']} \n  Distância: {workout['distance']}KM \n  Tempo: {workout['time']} Minutos \n  Localização: {workout['localization']} \n  Clima: {workout['weather']}")
     print()
     while True:
         print("Filtros: 1- Tempo | 2- Distância")
@@ -62,7 +62,7 @@ def read_workout():
                 print("Nenhum treino encontrado!")
             else:
                 for i, workout in enumerate(filtered_workouts):
-                    print(f"Treino {i + 1}:\n  Nome: {workout["name"]} \n  Data: {workout["date"]} \n  Distância: {workout["distance"]}KM \n  Tempo: {workout["time"]} Minutos \n  Localização: {workout["localization"]} \n  Clima: {workout["weather"]}")
+                    print(f"Treino {i + 1}:\n  Nome: {workout['name']} \n  Data: {workout['date']} \n  Distância: {workout['distance']}KM \n  Tempo: {workout['time']} Minutos \n  Localização: {workout['localization']} \n  Clima: {workout['weather']}")
             print()
         elif filter_opt == 2:
             distance_filter_min = float(input("Insira a distância mínima de treino ou 0 caso não possua: "))
@@ -75,12 +75,12 @@ def read_workout():
                 print("Nenhum treino encontrado!")
             else:
                 for i, workout in enumerate(filtered_workouts):
-                    print(f"Treino {i + 1}:\n  Nome: {workout["name"]} \n  Data: {workout["date"]} \n  Distância: {workout["distance"]}KM \n  Tempo: {workout["time"]} Minutos \n  Localização: {workout["localization"]} \n  Clima: {workout["weather"]}")
+                    print(f"Treino {i + 1}:\n  Nome: {workout['name']} \n  Data: {workout['date']} \n  Distância: {workout['distance']}KM \n  Tempo: {workout['time']} Minutos \n  Localização: {workout['localization']} \n  Clima: {workout['weather']}")
             print()
         
 def update_workout(id):
-    for workout in enumerate(workouts):
-        if workout["id"] == id:
+    for i, workout in enumerate(workouts):
+        if workout['id'] == id:
             print("1 - Atualizar Nome")
             print("2 - ATualizar Data")
             print("3 - Atualizar Distância")
@@ -90,29 +90,29 @@ def update_workout(id):
             resp = int(input("O que deseja atualizar? "))
             if resp == 1:
                 novo_nome = input("Digite o novo nome: ")
-                workout["name"] = novo_nome
+                workout['name'] = novo_nome
             if resp == 2:
                 nova_data = input("Digite o nova data: ")
-                workout["date"] = nova_data
+                workout['date'] = nova_data
             if resp == 3:
                 nova_distancia = input("Digite o nova distância: ")
-                workout["distance"] = nova_distancia
+                workout['distance'] = nova_distancia
             if resp == 4:
                 novo_tempo = input("Digite o novo tempo: ")
-                workout["time"] = novo_tempo
+                workout['time'] = novo_tempo
             if resp == 5:
                 nova_localizacao = input("Digite o nova localização: ")
-                workout["localization"] = nova_localizacao
+                workout['localization'] = nova_localizacao
             if resp == 6:
                 novo_clima = input("Digite o novo clima: ")
-                workout["weather"] = novo_clima
+                workout['weather'] = novo_clima
             print("Treino atualizado com sucesso!")
             return
     print("Treino não encontrado. Tente novamente!")
 
 def delete_workout(id):
     for i, workout in enumerate(workouts):
-        if workout["id"] == id:
+        if workout['id'] == id:
             del workouts[i]
             print("Treino deletado com sucesso!")
             save_workout_data()
@@ -122,7 +122,7 @@ def delete_workout(id):
 def workouts_numerate():
     for i, workout in enumerate(workouts):
         print("Treinos: ")
-        print(f"{i + 1} - {workout["name"]}")       
+        print(f"{i + 1} - {workout['name']}")       
 
 while True:
     read_workout_data()
