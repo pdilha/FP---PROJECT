@@ -1,5 +1,16 @@
 workouts = []
 
+def acessar_quarto_indice(nome_arquivo, delimitador=" "):
+    with open('workout_data.txt', 'r') as arquivo:
+        for linha in arquivo:
+            elementos = linha.strip().split(delimitador)
+            if len(elementos) >= 4:
+                yield elementos[3]
+
+def calcular_porcentagem(parte, total):
+    porcentagem = (parte / total) * 100
+    return porcentagem
+
 def save_workout_data(filename="workout_data.txt"):
     with open("workout_data.txt", "w") as file:
         for workout in workouts:
