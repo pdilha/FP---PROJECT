@@ -3,43 +3,30 @@ os.system("cls")
 
 import defs_crud_training
 
-lista_dist = []
 workouts = []
-meta = 0
-nova_meta = 0
-km_corridos = 0
-k = 0
-lista_mes = []
-
-try:
-    for quarto_indice in defs_crud_training.acessar_quarto_indice("workout_data.txt", ","):
-        lista_dist.append(float(quarto_indice))
-except (FileNotFoundError, ValueError):
-    print("Erro ao carregar os dados do arquivo. Verifique se o arquivo existe e está no formato correto.")
-    lista_dist = []
 
 while True:
     defs_crud_training.read_workout_data()
     print("-=" * 15)
-    print("1 - Criar Treino ou Competição")
-    print("2 - Ver Treinos e Competições")
-    print("3 - Atualizar Treino e Competições")
-    print("4 - Deletar Treino e Competições")
+    print("1 - Criar Atividade")
+    print("2 - Ver Atividades")
+    print("3 - Atualizar Atividades")
+    print("4 - Deletar Atividades")
     print("5 - Gerenciar Metas")
-    print("6 - Calorias Queimadas")
+    print("6 - Estimativa de Calorias Queimadas")
     print("7 - Sugestão de Treinos")
     print("8 - Sair do Programa")
     print("-=" * 15)
     
     try:
-        user_opt = int(input('Função desejada: '))
+        user_opt = int(input('Função Desejada: '))
     except ValueError:
         print("Erro: Por favor, insira um número válido para a opção.")
         continue
 
     if user_opt == 1:
         print("-=" * 15)
-        name = input("Nome do treino: ").strip()
+        name = input("Nome da Atividade: ").strip()
         date = input("Data (DD/MM/AAAA): ").strip()
         while True:
             try:
@@ -77,7 +64,7 @@ while True:
         defs_crud_training.workouts_numerate()
         while True:
             try:
-                id = int(input("Número do treino: "))
+                id = int(input("Número da Atividade: "))
                 break
             except ValueError:
                 print("Erro: Por favor, insira um número válido.")
@@ -92,81 +79,25 @@ while True:
         defs_crud_training.workouts_numerate()
         while True:
             try:
-                id = int(input("Número do treino: "))
+                id = int(input("Número da Atividade: "))
                 break
             except ValueError:
-                print("Erro: Por favor, insira um número válido.")
+                print("Erro: Por favor, Insira um Número Válido.")
         try:
             defs_crud_training.delete_workout(id)
         except Exception:
-            print("Erro ao deletar treino.")
+            print("Erro ao Deletar Atividade.")
         print("-=" * 15)
     
     elif user_opt == 5:
-        while True:
-            print("-=" * 15)
-            print('1 - Definir meta\n2 - Alterar meta\n3 - Verificar andamento da meta\n4 - Visualizar diário')
-            print("-=" * 15)
-            try:
-                user_resp = int(input('Função desejada: '))
-            except ValueError:
-                print("Erro: Por favor, insira um número válido.")
-                continue
-            
-            if user_resp == 1:
-                if meta == 0:
-                    try:
-                        meta = float(input('\nDefina sua meta (em KM): '))
-                        if meta <= 0:
-                            print("Erro: A meta deve ser um número positivo.")
-                            meta = 0
-                        else:
-                            print(f'\nOk, meta definida: {meta:.2f} Km ')
-                    except ValueError:
-                        print("Erro: A meta deve ser um número.")
-                else:
-                    print('\nMeta já definida!')
-            elif user_resp == 2:
-                if meta == 0:
-                    print('\nVocê precisa ter uma meta antes de alterá-la!')
-                else:
-                    try:
-                        nova_meta = float(input('\nDefina sua nova meta: '))
-                        if nova_meta <= 0:
-                            print("Erro: A nova meta deve ser positiva.")
-                        elif nova_meta == meta:
-                            print('\nSua nova meta não pode ser igual à atual!')
-                        else:
-                            meta = nova_meta
-                            print(f'\nOk, nova meta: {meta:.2f} Km')
-                    except ValueError:
-                        print("Erro: A nova meta deve ser um número.")
-            elif user_resp == 3:
-                if meta != 0:
-                    try:
-                        soma = sum(lista_dist)
-                        km_corridos = soma
-                        resultado = defs_crud_training.calcular_porcentagem(km_corridos, meta)
-                        print(f'Você correu {km_corridos} Km, equivalente a {resultado:.2f}% de sua meta.')
-                    except ZeroDivisionError:
-                        print("Erro: Meta não pode ser zero durante o cálculo.")
-                else:
-                    print('\nVocê precisa ter uma meta definida!')
-            elif user_resp == 4:
-                if lista_dist:
-                    for i, treino in enumerate(lista_dist, start=1):
-                        print(f'Treino {i}: {treino} Km ')
-                else:
-                    print("Nenhum treino registrado.")
-            else:
-                print("Opção inválida.")
+        defs_crud_training.manage_goals()
     
     elif user_opt == 6:
         print("-=" * 15)
         try:
-            defs_crud_training.cal_calc("workout_data.txt")
+            defs_crud_training.cal_calc()
         except Exception:
-            print("Erro ao calcular calorias queimadas.")
+            print("Erro ao calcular calorias.")
             
     elif user_opt == 7:
         print("-="  * 15)
@@ -174,8 +105,9 @@ while True:
     
     elif user_opt == 8:
         print("-=" * 15)
-        print("Saindo do programa...")
+        print("Saindo do Programa...")
         print("-=" * 15)
         break
+    
     else:
-        print("Opção inválida. Por favor, escolha uma opção entre 1 e 7.")
+        print("Opção Inválida. Tente Novamente")
