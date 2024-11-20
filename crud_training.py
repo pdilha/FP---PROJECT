@@ -105,7 +105,7 @@ while True:
     
     elif user_opt == 8:
         print("-=" * 15)
-        print("Saindo do Programa...")
+        print("Saindo do Programa... obrigado por usar nosso sistema")
         print("-=" * 15)
         break
     
