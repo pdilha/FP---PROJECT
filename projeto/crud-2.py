@@ -1,5 +1,6 @@
+import random
 import os
-os.system("clear")
+os.system("cls")
 
 lista_dist=[]
 workouts = []
@@ -10,7 +11,7 @@ k=0
 lista_mes=[]
 
 def acessar_quarto_indice(nome_arquivo, delimitador=" "):
-    with open('Proj FP/workout_data.txt', 'r') as arquivo:
+    with open('projeto\workout_data-1.txt', 'r') as arquivo:
         for linha in arquivo:
             elementos = linha.strip().split(delimitador)
             if len(elementos) >= 4:
@@ -20,16 +21,16 @@ def calcular_porcentagem(parte, total):
     porcentagem = (parte / total) * 100
     return porcentagem
 
-def save_workout_data(filename="Proj FP/workout_data.txt"):
-    with open("Proj FP/workout_data.txt", "w") as file:
+def save_workout_data(filename="projeto\workout_data-1.txt"):
+    with open("projeto\workout_data-1.txt", "w") as file:
         for workout in workouts:
             line = f"{workout['id']},{workout['name']},{workout['date']},{workout['distance']},{workout['time']},{workout['localization']},{workout['weather']}\n"
             file.write(line)
 
-def read_workout_data(filename="Proj FP/workout_data.txt"):
+def read_workout_data(filename="projeto\workout_data-1.txt"):
     global workouts
     workouts = []
-    with open("Proj FP/workout_data.txt", "r") as file:
+    with open("projeto\workout_data-1.txt", "r") as file:
         for line in file:
             id, name, date, distance, time, localization, weather = line.strip().split(',')
             workout = {
@@ -141,7 +142,7 @@ def workouts_numerate():
         print("Treinos: ")
         print(f"{i + 1} - {workout['name']}")       
 
-for quarto_indice in acessar_quarto_indice("Proj FP/workout_data.txt", ","):
+for quarto_indice in acessar_quarto_indice("projeto\workout_data-1.txt", ","):
     lista_dist.append(float(quarto_indice))
 
 while True:
@@ -153,7 +154,7 @@ while True:
     print("4 - Deletar Treino")
     print("5 - Sair do Programa")
     print("6 - Gerenciar metas")
-    print("7 - Calorias queimadas")
+    print("7 - Frequência Cardiaca")
     print("-=" * 15)
     
     user_opt = int(input('Função desejada: '))
@@ -229,4 +230,5 @@ while True:
                     k+=1
                     print(f'Treino {k}: {i} Km ')
     if user_opt == 7:
-        
+        numero_aleatorio = random.randint(100, 150)
+        print(f'Sua frequencia cardiaca atual é: {numero_aleatorio} BPM')
