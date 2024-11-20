@@ -3,7 +3,7 @@
 
 ## Visão Geral
 
-O Straravia é um aplicativo de gerenciamento de treinos e competições de corrida. O aplicativo permite registrar, atualizar, excluir treinos, definir metas e acompanhar seu progresso. Além disso, oferece sugestões de treinos e calcula a estimativa calorias queimadas durante as atividades a partir da distância percorrida.
+O Straravia é um aplicativo de gerenciamento de treinos e competições de corrida. O aplicativo permite registrar, atualizar, excluir, definir metas e acompanhar seu progresso de atividades físicas. Além disso, oferece sugestões de treinos e calcula a estimativa calorias queimadas durante as atividades a partir da distância percorrida.
 
 ## Funcionalidades
 
@@ -40,3 +40,10 @@ O aplicativo oferece as seguintes funcionalidades:
   - Salve automaticamente todos os dados registrados ao encerrar o aplicativo.
 3. **Entrada de Dados:** Durante a interação, você poderá ser solicitado para fornecer informações sobre a atividade (nome, data, distância, tempo, etc.) ou metas de corrida. O programa realizará validações de entrada para garantir que os dados inseridos sejam válidos.
 
+# Restrições
+
+O aplicativo possui algumas limitações, como a imprecisão no cálculo de calorias, pois poderá depender de múltiplos fatores durante a atividade física. Além disso, existe uma restrição no recebimento de dados relacionados a data e clima, que serão solucionados posteriormente.
+
+# Agradecimentos
+
+Toda a equipe agradece a utilização e teste do Straravia, esperamos que tenham uma ótima experiência!
