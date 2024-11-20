@@ -7,7 +7,7 @@ workouts = []
 
 while True:
     defs_crud_training.read_workout_data()
-    print("-=" * 15)
+    print("=-=-= Menu Principal =-=-=")
     print("1 - Criar Atividade")
     print("2 - Ver Atividades")
     print("3 - Atualizar Atividades")
