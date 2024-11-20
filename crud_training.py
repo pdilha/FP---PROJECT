@@ -21,12 +21,12 @@ except (FileNotFoundError, ValueError):
 while True:
     defs_crud_training.read_workout_data()
     print("-=" * 15)
-    print("1 - Criar Treino")
-    print("2 - Ver Treino")
-    print("3 - Atualizar Treino")
-    print("4 - Deletar Treino")
-    print("5 - Gerenciar metas")
-    print("6 - Calorias queimadas")
+    print("1 - Criar Treino ou Competição")
+    print("2 - Ver Treinos e Competições")
+    print("3 - Atualizar Treino e Competições")
+    print("4 - Deletar Treino e Competições")
+    print("5 - Gerenciar Metas")
+    print("6 - Calorias Queimadas")
     print("7 - Sugestão de Treinos")
     print("8 - Sair do Programa")
     print("-=" * 15)
@@ -108,12 +108,12 @@ while True:
             print('1 - Definir meta\n2 - Alterar meta\n3 - Verificar andamento da meta\n4 - Visualizar diário')
             print("-=" * 15)
             try:
-                r = int(input('Função desejada: '))
+                user_resp = int(input('Função desejada: '))
             except ValueError:
                 print("Erro: Por favor, insira um número válido.")
                 continue
             
-            if r == 1:
+            if user_resp == 1:
                 if meta == 0:
                     try:
                         meta = float(input('\nDefina sua meta (em KM): '))
@@ -126,7 +126,7 @@ while True:
                         print("Erro: A meta deve ser um número.")
                 else:
                     print('\nMeta já definida!')
-            elif r == 2:
+            elif user_resp == 2:
                 if meta == 0:
                     print('\nVocê precisa ter uma meta antes de alterá-la!')
                 else:
@@ -141,7 +141,7 @@ while True:
                             print(f'\nOk, nova meta: {meta:.2f} Km')
                     except ValueError:
                         print("Erro: A nova meta deve ser um número.")
-            elif r == 3:
+            elif user_resp == 3:
                 if meta != 0:
                     try:
                         soma = sum(lista_dist)
@@ -152,7 +152,7 @@ while True:
                         print("Erro: Meta não pode ser zero durante o cálculo.")
                 else:
                     print('\nVocê precisa ter uma meta definida!')
-            elif r == 4:
+            elif user_resp == 4:
                 if lista_dist:
                     for i, treino in enumerate(lista_dist, start=1):
                         print(f'Treino {i}: {treino} Km ')

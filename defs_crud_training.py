@@ -55,9 +55,9 @@ def read_workout_data(filename="workout_data.txt"):
                 except ValueError:
                     print(f"Erro ao processar linha do arquivo: {line.strip()}")
     except FileNotFoundError:
-        print("Erro: Arquivo de treinos não encontrado.")
+        print("Erro: Arquivo de atividades não encontrado.")
     except Exception:
-        print("Erro inesperado ao carregar os dados dos treinos.")
+        print("Erro inesperado ao carregar os dados das atividades.")
 
 def create_workout(name, date, distance, time, localization, weather):
     try:
@@ -71,10 +71,22 @@ def create_workout(name, date, distance, time, localization, weather):
             "weather": weather
         }
         workouts.append(new_workout)
-        print("Treino criado com sucesso!")
+        print("Atividade criada com sucesso!")
         save_workout_data()
     except Exception:
-        print("Erro ao criar um novo treino.")
+        print("Erro ao criar uma nova atividade.")
+        
+def workouts_numerate():
+    try:
+        for i, workout in enumerate(workouts):
+            print("Treinos: ")
+            print(f"{i + 1} - {workout['name']}")  
+    except ValueError:
+        print(f"Erro de valor.")
+    except KeyError:
+        print(f"Erro de chave.")
+    except Exception:
+        print(f"Erro inesperado.")
 
 def read_workout():
     try:
@@ -83,7 +95,7 @@ def read_workout():
             return
 
         for i, workout in enumerate(workouts):
-            print(f"Treino {i + 1}:\n  Nome: {workout['name']} \n  Data: {workout['date']} \n  Distância: {workout['distance']}KM \n  Tempo: {workout['time']} Minutos \n  Localização: {workout['localization']} \n  Clima: {workout['weather']}")
+            print(f"Atividade {i + 1}:\n  Nome: {workout['name']} \n  Data: {workout['date']} \n  Distância: {workout['distance']}KM \n  Tempo: {workout['time']} Minutos \n  Localização: {workout['localization']} \n  Clima: {workout['weather']}")
             print("-=" * 15)
         print()
 
@@ -93,8 +105,8 @@ def read_workout():
             if filter_opt == 0:
                 break
             elif filter_opt == 1:
-                time_filter_min = float(input("Insira o tempo mínimo de treino ou 0 caso não possua: "))
-                time_filter_max = float(input("Insira o tempo máximo de treino ou 0 caso não possua: "))
+                time_filter_min = float(input("Insira o tempo mínimo de atividade ou 0 caso não possua: "))
+                time_filter_max = float(input("Insira o tempo máximo de atividade ou 0 caso não possua: "))
                 filtered_workouts = [
                     workout for workout in workouts
                     if (time_filter_min == 0 or workout["time"] >= time_filter_min) and (time_filter_max == 0 or workout["time"] <= time_filter_max)
@@ -106,22 +118,22 @@ def read_workout():
                         print(f"Treino {i + 1}:\n  Nome: {workout['name']} \n  Data: {workout['date']} \n  Distância: {workout['distance']}KM \n  Tempo: {workout['time']} Minutos \n  Localização: {workout['localization']} \n  Clima: {workout['weather']}")
                 print()
             elif filter_opt == 2:
-                distance_filter_min = float(input("Insira a distância mínima de treino ou 0 caso não possua: "))
-                distance_filter_max = float(input("Insira a distância máxima de treino ou 0 caso não possua: "))
+                distance_filter_min = float(input("Insira a distância mínima de atividade ou 0 caso não possua: "))
+                distance_filter_max = float(input("Insira a distância máxima de atividade ou 0 caso não possua: "))
                 filtered_workouts = [
                     workout for workout in workouts
                     if (distance_filter_min == 0 or workout["distance"] >= distance_filter_min) and (distance_filter_max == 0 or workout["distance"] <= distance_filter_max)
                 ]
                 if not filtered_workouts:
-                    print("Nenhum treino encontrado!")
+                    print("Nenhuma atividade encontrada!")
                 else:
                     for i, workout in enumerate(filtered_workouts):
-                        print(f"Treino {i + 1}:\n  Nome: {workout['name']} \n  Data: {workout['date']} \n  Distância: {workout['distance']}KM \n  Tempo: {workout['time']} Minutos \n  Localização: {workout['localization']} \n  Clima: {workout['weather']}")
+                        print(f"Atividade {i + 1}:\n  Nome: {workout['name']} \n  Data: {workout['date']} \n  Distância: {workout['distance']}KM \n  Tempo: {workout['time']} Minutos \n  Localização: {workout['localization']} \n  Clima: {workout['weather']}")
                 print()
     except ValueError:
         print("Erro: Entrada inválida para filtro.")
     except Exception:
-        print("Erro inesperado ao ler treinos.")
+        print("Erro inesperado ao ler atividades.")
 
 def update_workout(id):
     try:
@@ -146,31 +158,31 @@ def update_workout(id):
                     workout['localization'] = input("Digite a nova localização: ")
                 elif resp == 6:
                     workout['weather'] = input("Digite o novo clima: ")
-                print("Treino atualizado com sucesso!")
+                print("Atividade atualizada com sucesso!")
                 save_workout_data()
                 return
-        print("Treino não encontrado.")
+        print("Atividade não encontrada.")
     except ValueError:
         print("Erro: Entrada inválida para o campo.")
     except Exception:
-        print("Erro inesperado ao atualizar o treino.")
+        print("Erro inesperado ao atualizar o atividade.")
 
 def delete_workout(id):
     try:
         for i, workout in enumerate(workouts):
             if workout['id'] == id:
                 del workouts[i]
-                print("Treino deletado com sucesso!")
+                print("Atividade deletada com sucesso!")
                 save_workout_data()
                 return
-        print("Treino não encontrado.")
+        print("Atividade não encontrada.")
     except Exception:
-        print("Erro inesperado ao deletar treino.")
+        print("Erro inesperado ao deletar atividade.")
 
 def cal_calc():
     try:
         if not workouts:
-            print("Sem treinos registrados! Por favor, adicione treinos primeiro.")
+            print("Sem atividades registradas! Por favor, adicione atividades primeiro.")
             return
 
         print("\nCalorias Queimadas:\n")
@@ -180,7 +192,7 @@ def cal_calc():
                 distance = workout['distance']
                 calories = distance * 60
 
-                print(f"Treino {workout['id']}: {workout['name']}")
+                print(f"Atividade {workout['id']}: {workout['name']}")
                 print(f"  Distância: {distance:.2f} km")
                 print(f"  Estimativa de Calorias Queimadas: ~{calories:.2f} kcal")
                 print("-=" * 15)
