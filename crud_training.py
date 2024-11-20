@@ -1,173 +1,181 @@
 import os
 os.system("cls")
 
+import defs_crud_training
+
+lista_dist = []
 workouts = []
+meta = 0
+nova_meta = 0
+km_corridos = 0
+k = 0
+lista_mes = []
 
-def save_workout_data(filename="workout_data.txt"):
-    with open("workout_data.txt", "w") as file:
-        for workout in workouts:
-            line = f"{workout['id']},{workout['name']},{workout['date']},{workout['distance']},{workout['time']},{workout['localization']},{workout['weather']}\n"
-            file.write(line)
-
-def read_workout_data(filename="workout_data.txt"):
-    global workouts
-    workouts = []
-    with open("workout_data.txt", "r") as file:
-        for line in file:
-            id, name, date, distance, time, localization, weather = line.strip().split(',')
-            workout = {
-                    "id": int(id),
-                    "name": name,
-                    "date": date,
-                    "distance": float(distance),
-                    "time": float(time),
-                    "localization": localization,
-                    "weather": weather
-                }
-            workouts.append(workout)
-            
-def create_workout(name, date, distance, time, localization, weather):
-    new_workout = {
-        "id": len(workouts) + 1,
-        "name": name,
-        "date":  date,
-        "distance": distance,
-        "time": time,
-        "localization": localization,
-        "weather": weather
-    } 
-    workouts.append(new_workout)
-    print("Treino criado com sucesso!")
-    save_workout_data()
-
-def read_workout():
-    if not workouts:
-        print("Sem treinos registrados!")
-    for i, workout in enumerate(workouts):
-        print(f"Treino {i + 1}:\n  Nome: {workout['name']} \n  Data: {workout['date']} \n  Distância: {workout['distance']}KM \n  Tempo: {workout['time']} Minutos \n  Localização: {workout['localization']} \n  Clima: {workout['weather']}")
-    print()
-    while True:
-        print("Filtros: 1- Tempo | 2- Distância")
-        filter_opt = int(input("Insira o filtro desejado ou 0 para retornar: "))
-        if filter_opt == 0:
-            break
-        elif filter_opt == 1:
-            time_filter_min = float(input("Insira o tempo mínimo de treino ou 0 caso não possua: "))
-            time_filter_max = float(input("Insira o tempo máximo de treino ou 0 caso não possua: "))
-            filtered_workouts = [
-                workout for workout in workouts
-                if (time_filter_min == 0 or workout["time"] >= time_filter_min) and (time_filter_max == 0 or workout["time"] <= time_filter_max)
-            ]
-            if not filtered_workouts:
-                print("Nenhum treino encontrado!")
-            else:
-                for i, workout in enumerate(filtered_workouts):
-                    print(f"Treino {i + 1}:\n  Nome: {workout['name']} \n  Data: {workout['date']} \n  Distância: {workout['distance']}KM \n  Tempo: {workout['time']} Minutos \n  Localização: {workout['localization']} \n  Clima: {workout['weather']}")
-            print()
-        elif filter_opt == 2:
-            distance_filter_min = float(input("Insira a distância mínima de treino ou 0 caso não possua: "))
-            distance_filter_max = float(input("Insira a distância máxima de treino ou 0 caso não possua: "))
-            filtered_workouts = [
-                workout for workout in workouts
-                if (distance_filter_min == 0 or workout["distance"] >= distance_filter_min) and (distance_filter_max == 0 or workout["distance"] <= distance_filter_max)
-            ]
-            if not filtered_workouts:
-                print("Nenhum treino encontrado!")
-            else:
-                for i, workout in enumerate(filtered_workouts):
-                    print(f"Treino {i + 1}:\n  Nome: {workout['name']} \n  Data: {workout['date']} \n  Distância: {workout['distance']}KM \n  Tempo: {workout['time']} Minutos \n  Localização: {workout['localization']} \n  Clima: {workout['weather']}")
-            print()
-        
-def update_workout(id):
-    for i, workout in enumerate(workouts):
-        if workout['id'] == id:
-            print("1 - Atualizar Nome")
-            print("2 - ATualizar Data")
-            print("3 - Atualizar Distância")
-            print("4 - Atualizar Tempo")
-            print("5 - Atualizar Localização")
-            print("6 - Atualizar Clima")
-            resp = int(input("O que deseja atualizar? "))
-            if resp == 1:
-                novo_nome = input("Digite o novo nome: ")
-                workout['name'] = novo_nome
-            if resp == 2:
-                nova_data = input("Digite o nova data: ")
-                workout['date'] = nova_data
-            if resp == 3:
-                nova_distancia = input("Digite o nova distância: ")
-                workout['distance'] = nova_distancia
-            if resp == 4:
-                novo_tempo = input("Digite o novo tempo: ")
-                workout['time'] = novo_tempo
-            if resp == 5:
-                nova_localizacao = input("Digite o nova localização: ")
-                workout['localization'] = nova_localizacao
-            if resp == 6:
-                novo_clima = input("Digite o novo clima: ")
-                workout['weather'] = novo_clima
-            print("Treino atualizado com sucesso!")
-            return
-    print("Treino não encontrado. Tente novamente!")
-
-def delete_workout(id):
-    for i, workout in enumerate(workouts):
-        if workout['id'] == id:
-            del workouts[i]
-            print("Treino deletado com sucesso!")
-            save_workout_data()
-            return
-    print("Treino não encontrado!")
-
-def workouts_numerate():
-    for i, workout in enumerate(workouts):
-        print("Treinos: ")
-        print(f"{i + 1} - {workout['name']}")       
+try:
+    for quarto_indice in defs_crud_training.acessar_quarto_indice("workout_data.txt", ","):
+        lista_dist.append(float(quarto_indice))
+except (FileNotFoundError, ValueError):
+    print("Erro ao carregar os dados do arquivo. Verifique se o arquivo existe e está no formato correto.")
+    lista_dist = []
 
 while True:
-    read_workout_data()
+    defs_crud_training.read_workout_data()
     print("-=" * 15)
-    print("1 - Criar Treino")
-    print("2 - Ver Treino")
-    print("3 - Atualizar Treino")
-    print("4 - Deletar Treino")
-    print("5 - Sair do Programa")
+    print("1 - Criar Treino ou Competição")
+    print("2 - Ver Treinos e Competições")
+    print("3 - Atualizar Treino e Competições")
+    print("4 - Deletar Treino e Competições")
+    print("5 - Gerenciar Metas")
+    print("6 - Calorias Queimadas")
+    print("7 - Sugestão de Treinos")
+    print("8 - Sair do Programa")
     print("-=" * 15)
     
-    user_opt = int(input(""))
-    
+    try:
+        user_opt = int(input('Função desejada: '))
+    except ValueError:
+        print("Erro: Por favor, insira um número válido para a opção.")
+        continue
+
     if user_opt == 1:
         print("-=" * 15)
-        name = input("Nome do treino: ")
-        date = input("Data: ")
-        distance = float(input("Distância percorrida em KM: "))
-        time = float(input("Tempo de treino em minutos: "))
-        localization = input("Localização: ")
-        weather = input("Clima: ")
+        name = input("Nome do treino: ").strip()
+        date = input("Data (DD/MM/AAAA): ").strip()
+        while True:
+            try:
+                distance = float(input("Distância percorrida em KM: "))
+                if distance < 0:
+                    print("Erro: A distância não pode ser negativa.")
+                    continue
+                break
+            except ValueError:
+                print("Erro: Distância deve ser um número.")
+        while True:
+            try:
+                time = float(input("Tempo de treino em minutos: "))
+                if time <= 0:
+                    print("Erro: O tempo deve ser maior que zero.")
+                    continue
+                break
+            except ValueError:
+                print("Erro: Tempo deve ser um número.")
+        localization = input("Localização: ").strip()
+        weather = input("Clima: ").strip()
         print("-=" * 15)
         
-        create_workout(name, date, distance, time, localization, weather)
+        defs_crud_training.create_workout(name, date, distance, time, localization, weather)
+
+    elif user_opt == 2:
+        print("-=" * 15)
+        try:
+            defs_crud_training.read_workout()
+        except Exception:
+            print("Erro ao ler os treinos.")
     
-    if user_opt == 2:
+    elif user_opt == 3:
         print("-=" * 15)
-        read_workout()
-    
-    if user_opt == 3:
-        print("-=" * 15)
-        workouts_numerate()
-        id = int(input("Número do treino: "))
-        update_workout(id)
-        print("-=" * 15)
-    
-    if user_opt == 4:
-        print("-=" * 15)
-        workouts_numerate()
-        id = int(input("Número do treino: "))
-        delete_workout(id)
+        defs_crud_training.workouts_numerate()
+        while True:
+            try:
+                id = int(input("Número do treino: "))
+                break
+            except ValueError:
+                print("Erro: Por favor, insira um número válido.")
+        try:
+            defs_crud_training.update_workout(id)
+        except Exception:
+            print("Erro ao atualizar treino.")
         print("-=" * 15)
     
-    if user_opt == 5:
+    elif user_opt == 4:
+        print("-=" * 15)
+        defs_crud_training.workouts_numerate()
+        while True:
+            try:
+                id = int(input("Número do treino: "))
+                break
+            except ValueError:
+                print("Erro: Por favor, insira um número válido.")
+        try:
+            defs_crud_training.delete_workout(id)
+        except Exception:
+            print("Erro ao deletar treino.")
+        print("-=" * 15)
+    
+    elif user_opt == 5:
+        while True:
+            print("-=" * 15)
+            print('1 - Definir meta\n2 - Alterar meta\n3 - Verificar andamento da meta\n4 - Visualizar diário')
+            print("-=" * 15)
+            try:
+                user_resp = int(input('Função desejada: '))
+            except ValueError:
+                print("Erro: Por favor, insira um número válido.")
+                continue
+            
+            if user_resp == 1:
+                if meta == 0:
+                    try:
+                        meta = float(input('\nDefina sua meta (em KM): '))
+                        if meta <= 0:
+                            print("Erro: A meta deve ser um número positivo.")
+                            meta = 0
+                        else:
+                            print(f'\nOk, meta definida: {meta:.2f} Km ')
+                    except ValueError:
+                        print("Erro: A meta deve ser um número.")
+                else:
+                    print('\nMeta já definida!')
+            elif user_resp == 2:
+                if meta == 0:
+                    print('\nVocê precisa ter uma meta antes de alterá-la!')
+                else:
+                    try:
+                        nova_meta = float(input('\nDefina sua nova meta: '))
+                        if nova_meta <= 0:
+                            print("Erro: A nova meta deve ser positiva.")
+                        elif nova_meta == meta:
+                            print('\nSua nova meta não pode ser igual à atual!')
+                        else:
+                            meta = nova_meta
+                            print(f'\nOk, nova meta: {meta:.2f} Km')
+                    except ValueError:
+                        print("Erro: A nova meta deve ser um número.")
+            elif user_resp == 3:
+                if meta != 0:
+                    try:
+                        soma = sum(lista_dist)
+                        km_corridos = soma
+                        resultado = defs_crud_training.calcular_porcentagem(km_corridos, meta)
+                        print(f'Você correu {km_corridos} Km, equivalente a {resultado:.2f}% de sua meta.')
+                    except ZeroDivisionError:
+                        print("Erro: Meta não pode ser zero durante o cálculo.")
+                else:
+                    print('\nVocê precisa ter uma meta definida!')
+            elif user_resp == 4:
+                if lista_dist:
+                    for i, treino in enumerate(lista_dist, start=1):
+                        print(f'Treino {i}: {treino} Km ')
+                else:
+                    print("Nenhum treino registrado.")
+            else:
+                print("Opção inválida.")
+    
+    elif user_opt == 6:
+        print("-=" * 15)
+        try:
+            defs_crud_training.cal_calc("workout_data.txt")
+        except Exception:
+            print("Erro ao calcular calorias queimadas.")
+            
+    elif user_opt == 7:
+        print("-="  * 15)
+        defs_crud_training.workout_sugest()
+    
+    elif user_opt == 8:
         print("-=" * 15)
         print("Saindo do programa...")
         print("-=" * 15)
         break
+    else:
+        print("Opção inválida. Por favor, escolha uma opção entre 1 e 7.")
