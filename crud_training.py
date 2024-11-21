@@ -19,7 +19,7 @@ while True:
     print("-=" * 15)
     
     try:
-        user_opt = int(input('Função Desejada: '))
+        user_opt = int(input("Função Desejada: "))
     except ValueError:
         print("Erro: Por favor, insira um número válido para a opção.")
         continue
