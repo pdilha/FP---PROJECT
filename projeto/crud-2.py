@@ -231,4 +231,4 @@ while True:
                     print(f'Treino {k}: {i} Km ')
     if user_opt == 7:
         numero_aleatorio = random.randint(100, 150)
-        print(f'Sua frequencia cardiaca atual é: {numero_aleatorio} BPM')
+        print(f'Sua frequencia cardiaca atual é: {numero_aleatorio} BPMM')
