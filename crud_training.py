@@ -27,7 +27,7 @@ while True:
     if user_opt == 1:
         print("-=" * 15)
         name = input("Nome da Atividade: ").strip()
-        date = input("Data (DD/MM/AAAA): ").strip()
+        date = input("Data(DD/MM/AAAA): ").strip()
         while True:
             try:
                 distance = float(input("Distância percorrida em KM: "))
@@ -105,7 +105,7 @@ while True:
     
     elif user_opt == 8:
         print("-=" * 15)
-        print("Saindo do Programa... Obrigado por usar nosso sistema!")
+        print("Saindo do Programa... Obrigado!")
         print("-=" * 15)
         break
     
