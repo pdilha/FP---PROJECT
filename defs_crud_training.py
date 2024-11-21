@@ -117,12 +117,12 @@ def update_workout(id):
     try:
         for workout in workouts:
             if workout['id'] == id:
-                print("1 - Atualizar Nome")
-                print("2 - Atualizar Data")
-                print("3 - Atualizar Distância")
-                print("4 - Atualizar Tempo")
-                print("5 - Atualizar Localização")
-                print("6 - Atualizar Clima")
+                print("1 - Nome")
+                print("2 - Data")
+                print("3 - Distância")
+                print("4 - Tempo")
+                print("5 - Localização")
+                print("6 - Clima")
                 resp = int(input("O que deseja atualizar? "))
                 if resp == 1:
                     workout['name'] = input("Digite o novo nome: ")
@@ -150,6 +150,7 @@ def delete_workout(id):
         for i, workout in enumerate(workouts):
             if workout['id'] == id:
                 del workouts[i]
+                print("-=" * 15)
                 print("Atividade Deletada com Sucesso!")
                 save_workout_data()
                 return
@@ -315,10 +316,10 @@ def workout_sugest():
 
     if action == "aumentar_distancia":
         nova_distancia = treino_aleatorio['distance'] + random.uniform(1, 2)
-        print(f"\nSugestão de Treino: Aumente a distância para {nova_distancia:.2f} km.")
+        print(f"Sugestão de Treino: Aumente a distância para {nova_distancia:.2f} km.")
         print(f"Treino base: {treino_aleatorio['name']} - Distância: {treino_aleatorio['distance']} km - Tempo: {treino_aleatorio['time']} minutos.")
     else:
         novo_tempo = treino_aleatorio['time'] - random.uniform(1, 10)
         novo_tempo = max(0, novo_tempo)
-        print(f"\nSugestão de Treino: Diminua o tempo para {novo_tempo:.2f} minutos.")
+        print(f"Sugestão de Treino: Diminua o tempo para {novo_tempo:.2f} minutos.")
         print(f"Treino base: {treino_aleatorio['name']} - Distância: {treino_aleatorio['distance']} km - Tempo: {treino_aleatorio['time']} minutos.")

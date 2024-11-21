@@ -7,7 +7,7 @@ workouts = []
 
 while True:
     defs_crud_training.read_workout_data()
-    print("-=" * 15)
+    print("=-=-= Menu Principal =-=-=")
     print("1 - Criar Atividade")
     print("2 - Ver Atividades")
     print("3 - Atualizar Atividades")
@@ -19,7 +19,7 @@ while True:
     print("-=" * 15)
     
     try:
-        user_opt = int(input('Função Desejada: '))
+        user_opt = int(input("Função Desejada: "))
     except ValueError:
         print("Erro: Por favor, insira um número válido para a opção.")
         continue
@@ -79,6 +79,7 @@ while True:
         defs_crud_training.workouts_numerate()
         while True:
             try:
+                print("-=" * 15)
                 id = int(input("Número da Atividade: "))
                 break
             except ValueError:
@@ -87,7 +88,6 @@ while True:
             defs_crud_training.delete_workout(id)
         except Exception:
             print("Erro ao Deletar Atividade.")
-        print("-=" * 15)
     
     elif user_opt == 5:
         defs_crud_training.manage_goals()
@@ -105,7 +105,7 @@ while True:
     
     elif user_opt == 8:
         print("-=" * 15)
-        print("Saindo do Programa...")
+        print("Saindo do Programa... Obrigado por usar nosso sistema")
         print("-=" * 15)
         break
     
