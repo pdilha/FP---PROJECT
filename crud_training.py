@@ -86,7 +86,7 @@ while True:
         try:
             defs_crud_training.delete_workout(id)
         except Exception:
-            print("Erro ao Deletar Atividade.")
+            print("Erro ao Deletar Atividade. Por favor, tente novamente.")
         print("-=" * 15)
     
     elif user_opt == 5:
